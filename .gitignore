@@ -1,0 +1,13 @@
+# Local hosting metadata
+.openai/
+.vercel/
+
+# Browser QA artifacts
+.chrome-*/
+desktop.png
+mobile.png
+
+# Local outputs
+outputs/
+*.tar.gz
+
