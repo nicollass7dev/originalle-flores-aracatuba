@@ -30,7 +30,7 @@ menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => 
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revealItems = document.querySelectorAll('.reveal');
-if (reduced || !('IntersectionObserver' in window)) {
+if (!('IntersectionObserver' in window)) {
   revealItems.forEach(item => item.classList.add('visible'));
 } else {
   const observer = new IntersectionObserver(entries => {
@@ -43,10 +43,12 @@ if (reduced || !('IntersectionObserver' in window)) {
   }, { threshold: .13 });
   revealItems.forEach(item => observer.observe(item));
 
-  const heroPhoto = document.querySelector('.parallax-card');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < window.innerHeight * 1.2) heroPhoto.style.transform = `translateY(${window.scrollY * .06}px)`;
-  }, { passive: true });
+  if (!reduced) {
+    const heroPhoto = document.querySelector('.parallax-card');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < window.innerHeight * 1.2) heroPhoto.style.transform = `translateY(${window.scrollY * .06}px)`;
+    }, { passive: true });
+  }
 }
 
 document.querySelector('#order-form').addEventListener('submit', event => {
